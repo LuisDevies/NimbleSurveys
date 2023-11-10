@@ -41,8 +41,6 @@ class LoginFragment : Fragment() {
     ): View {
 
         binding = FragmentLoginBinding.inflate(layoutInflater)
-
-
         val view = binding.root
 
         binding.loginButton.setOnClickListener { onLoginPressed() }
@@ -61,11 +59,11 @@ class LoginFragment : Fragment() {
                         }
                     }
                     binding.loading.visibility = View.GONE
-                    //TODO SEND TO HOME SCREEN
+                    goToActivity(HomeActivity::class.java)
                 }
 
                 Resource.Status.ERROR -> {
-                    Toast.makeText(context,  it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                     binding.loading.visibility = View.GONE
                 }
 
