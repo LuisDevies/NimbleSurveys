@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.nimble.nimblesurveys.BuildConfig
 import com.nimble.nimblesurveys.data.repository.TokenRepository
-import com.nimble.nimblesurveys.model.TokenResponse
 import com.nimble.nimblesurveys.model.user.LoginRequest
 import com.nimble.nimblesurveys.model.user.Token
 import com.nimble.nimblesurveys.data.remote.service.SessionManager
 import com.nimble.nimblesurveys.model.user.RefreshRequest
+import com.nimble.nimblesurveys.model.user.TokenData
+import com.nimble.nimblesurveys.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,18 +22,18 @@ class TokenViewModel @Inject constructor(
     private val repository: TokenRepository
 ) : ViewModel() {
 
-    private val _loginResponse = MutableLiveData<TokenResponse>()
-    val loginResponse: LiveData<TokenResponse> = _loginResponse
-    private val _refreshResponse = MutableLiveData<TokenResponse>()
-    val refreshResponse: LiveData<TokenResponse> = _refreshResponse
+    private val _loginResponse = MutableLiveData<Resource<TokenData>>()
+    val loginResponse: LiveData<Resource<TokenData>> = _loginResponse
+    private val _refreshResponse = MutableLiveData<Resource<TokenData>>()
+    val refreshResponse: LiveData<Resource<TokenData>> = _refreshResponse
 
-    fun login(loginRequest: LoginRequest) {
+    fun login(context: Context, loginRequest: LoginRequest) {
         viewModelScope.launch {
             try {
                 val response = repository.loginToken(loginRequest)
                 _loginResponse.value = response
             } catch (e: Exception) {
-                e.printStackTrace()
+                _loginResponse.value = Resource.error(e.message.toString())
             }
         }
     }
@@ -43,14 +44,33 @@ class TokenViewModel @Inject constructor(
                 val response = repository.refreshToken(refreshRequest)
                 _refreshResponse.value = response
             } catch (e: Exception) {
-
+                _refreshResponse.value = Resource.error(e.message.toString())
             }
         }
     }
 
-    fun saveSessionToken(context: Context, token: Token) {
-        val sessionManager = SessionManager(context)
+    fun createRefreshRequest(sessionManager: SessionManager) : RefreshRequest {
+        val token = sessionManager.fetchAuthToken()
+       return RefreshRequest(
+           "refresh_token",
+           token?.refreshToken ?: "",
+           BuildConfig.CLIENT_ID,
+           BuildConfig.CLIENT_SECRET
+       )
+    }
+
+    fun saveSessionToken(sessionManager: SessionManager, token: Token) {
         sessionManager.saveAuthToken(token)
+    }
+
+    fun isLogged(context: Context): Boolean {
+        val sessionManager = SessionManager(context)
+        return (sessionManager.fetchAuthToken() != null)
+    }
+
+    fun isTokenExpired(context: Context): Boolean {
+        val sessionManager = SessionManager(context)
+        return sessionManager.isAccessTokenExpired()
     }
 
 }

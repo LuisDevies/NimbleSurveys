@@ -54,7 +54,7 @@ class SessionManager(context: Context) {
     fun isAccessTokenExpired(): Boolean {
         val currentTimeMillis = System.currentTimeMillis()
         val token = fetchAuthToken()
-        return (token?.expiresIn != null) && (currentTimeMillis >= (token.expiresIn * 1000))
+        return (token?.expiresIn != null) && (currentTimeMillis >= ( (token.createdAt  + token.expiresIn) * 1000))
     }
 
     // Method to update the access token and its expiration time in the session

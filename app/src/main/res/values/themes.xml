@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.NimbleSurveys" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.NimbleSurveys" parent="@style/Theme.AppCompat.Light" />
+
+    <style name="Theme.NimbleSurveys.Fullscreen" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:actionBarStyle">@style/Widget.Theme.NimbleSurveys.ActionBar.Fullscreen
+        </item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.nimble.nimblesurveys
+package com.nimble.nimblesurveys.datasources
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nhaarman.mockitokotlin2.doReturn
@@ -9,6 +9,7 @@ import com.nimble.nimblesurveys.model.user.Token
 import com.nimble.nimblesurveys.model.user.TokenData
 import com.nimble.nimblesurveys.data.remote.datasource.TokenRemoteDataSource
 import com.nimble.nimblesurveys.data.remote.service.TokenService
+import com.nimble.nimblesurveys.utils.Resource
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -66,7 +67,36 @@ class TokenRemoteDataSourceTest {
         doReturn(mockResponse).`when`(tokenService).loginToken(loginRequest)
 
         val value = tokenRemoteDataSource.loginToken(loginRequest)
-        Assert.assertEquals(mockResponse, value)
+        Assert.assertEquals(Resource.success(mockResponse.data), value)
+        Assert.assertEquals(null, value.message)
+    }
+
+    @Test
+    fun login_shouldReturnError() = runTest {
+
+        val mockResponse = TokenResponse(
+            data = null,
+            errors = listOf(com.nimble.nimblesurveys.model.Error("1", "ERROR"))
+        )
+
+        val loginRequest = LoginRequest(
+            "password",
+            "email@email.com",
+            "password",
+            "id",
+            "secret"
+        )
+
+        doReturn(mockResponse).`when`(tokenService).loginToken(loginRequest)
+
+        val value = tokenRemoteDataSource.loginToken(loginRequest)
+        val expected: Resource<TokenData> = Resource.error(
+            mockResponse.errors?.get(0)?.code + " " + mockResponse.errors?.get(
+                0
+            )?.detail
+        )
+        Assert.assertEquals(expected, value)
+        Assert.assertEquals(null, value.data)
     }
 
     @Test
@@ -97,6 +127,33 @@ class TokenRemoteDataSourceTest {
         doReturn(mockResponse).`when`(tokenService).refreshToken(refreshRequest)
 
         val value = tokenRemoteDataSource.refreshToken(refreshRequest)
-        Assert.assertEquals(mockResponse, value)
+        Assert.assertEquals(Resource.success(mockResponse.data), value)
+    }
+
+    @Test
+    fun refresh_shouldReturnError() = runTest {
+
+        val mockResponse = TokenResponse(
+            data = null,
+            errors = listOf(com.nimble.nimblesurveys.model.Error("1", "ERROR"))
+        )
+
+        val refreshRequest = RefreshRequest(
+            "refresh_token",
+            "mock_refresh",
+            "mockID",
+            "mockSecret"
+        )
+
+        doReturn(mockResponse).`when`(tokenService).refreshToken(refreshRequest)
+
+        val value = tokenRemoteDataSource.refreshToken(refreshRequest)
+        val expected: Resource<TokenData> = Resource.error(
+            mockResponse.errors?.get(0)?.code + " " + mockResponse.errors?.get(
+                0
+            )?.detail
+        )
+        Assert.assertEquals(expected, value)
+        Assert.assertEquals(null, value.data)
     }
 }
