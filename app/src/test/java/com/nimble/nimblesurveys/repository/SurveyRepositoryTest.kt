@@ -12,6 +12,7 @@ import com.nimble.nimblesurveys.data.repository.SurveyRepository
 import com.nimble.nimblesurveys.model.SurveyData
 import com.nimble.nimblesurveys.model.survey.Survey
 import com.nimble.nimblesurveys.model.survey.SurveyResponse
+import com.nimble.nimblesurveys.utils.Resource
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -39,7 +40,7 @@ class SurveyRepositoryTest {
     @Test
     fun fetchSurveys_shouldReturnSurveyResponse() = runTest {
 
-        val mockResponse = SurveyResponse(
+        val mockResponse = Resource.success(
             data = listOf(
                 SurveyData(
                     id = "mockID",
@@ -50,8 +51,7 @@ class SurveyRepositoryTest {
                         coverImage = "mockUrl"
                     )
                 )
-            ),
-            errors = null
+            )
         )
 
         doReturn(mockResponse).`when`(remoteSurveyDataSource).fetchSurveys()
@@ -59,5 +59,19 @@ class SurveyRepositoryTest {
         val value = repository.fetchSurveys()
         assertEquals(mockResponse, value)
         assertEquals(1, value.data?.size)
+    }
+
+    @Test
+    fun fetchSurveys_shouldReturnError() = runTest {
+
+        val mockResponse: Resource<SurveyData> = Resource.error(
+            "ERROR"
+        )
+
+        doReturn(mockResponse).`when`(remoteSurveyDataSource).fetchSurveys()
+
+        val value = repository.fetchSurveys()
+        assertEquals(mockResponse, value)
+        assertEquals(null,value.data)
     }
 }

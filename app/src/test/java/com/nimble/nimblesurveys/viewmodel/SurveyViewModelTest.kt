@@ -10,7 +10,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nimble.nimblesurveys.data.repository.SurveyRepository
 import com.nimble.nimblesurveys.model.SurveyData
 import com.nimble.nimblesurveys.model.survey.Survey
-import com.nimble.nimblesurveys.model.survey.SurveyResponse
+import com.nimble.nimblesurveys.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -34,7 +34,7 @@ class SurveyViewModelTest {
     private lateinit var repository: SurveyRepository
 
     @Mock
-    private lateinit var observer: Observer<SurveyResponse>
+    private lateinit var observer: Observer<Resource<List<SurveyData>>>
 
 
     private lateinit var viewModel: SurveyViewModel
@@ -59,7 +59,7 @@ class SurveyViewModelTest {
     @Test
     fun fetchSurveys_shouldUpdateSurveyResponse() = runTest {
 
-        val mockResponse = SurveyResponse(
+        val mockResponse = Resource.success(
             data = listOf(
                 SurveyData(
                     id = "mockID",
@@ -70,8 +70,7 @@ class SurveyViewModelTest {
                         coverImage = "mockUrl"
                     )
                 )
-            ),
-            errors = null
+            )
         )
 
         doReturn(mockResponse).`when`(repository).fetchSurveys()
@@ -80,6 +79,22 @@ class SurveyViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
         assertEquals(mockResponse, viewModel.surveyResponse.value)
         assertEquals(1, viewModel.surveyResponse.value?.data?.size)
+        assertEquals(null,viewModel.surveyResponse.value?.message)
 
+    }
+
+    @Test
+    fun fetchSurveys_shouldReturnError() = runTest {
+
+        val mockResponse: Resource<SurveyData> = Resource.error(
+            "ERROR"
+        )
+
+        doReturn(mockResponse).`when`(repository).fetchSurveys()
+
+        viewModel.fetchSurveys()
+        testDispatcher.scheduler.advanceUntilIdle()
+        assertEquals(mockResponse, viewModel.surveyResponse.value)
+        assertEquals(null,viewModel.surveyResponse.value?.data)
     }
 }

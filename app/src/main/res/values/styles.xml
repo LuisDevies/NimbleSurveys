@@ -1,0 +1,10 @@
+<resources>
+
+    <style name="Widget.Theme.NimbleSurveys.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar"/>
+
+    <style name="Theme.NimbleSurveys.Activities" parent="Theme.NimbleSurveys">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+</resources>

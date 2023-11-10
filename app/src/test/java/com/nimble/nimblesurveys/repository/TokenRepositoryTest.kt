@@ -9,6 +9,7 @@ import com.nimble.nimblesurveys.model.user.RefreshRequest
 import com.nimble.nimblesurveys.model.user.Token
 import com.nimble.nimblesurveys.model.user.TokenData
 import com.nimble.nimblesurveys.data.remote.datasource.TokenRemoteDataSource
+import com.nimble.nimblesurveys.utils.Resource
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -40,7 +41,7 @@ class TokenRepositoryTest {
     @Test
     fun login_shouldReturnLoginResponse() = runTest {
 
-        val mockResponse = TokenResponse(
+        val mockResponse = Resource.success(
             data = TokenData(
                 id = "mockId",
                 type = "mockType",
@@ -51,8 +52,7 @@ class TokenRepositoryTest {
                     tokenType = "mockType",
                     expiresIn = 0
                 )
-            ),
-            errors = null
+            )
         )
 
         val loginRequest = LoginRequest(
@@ -72,7 +72,7 @@ class TokenRepositoryTest {
     @Test
     fun refresh_shouldReturnRefreshResponse() = runTest {
 
-        val mockResponse = TokenResponse(
+        val mockResponse = Resource.success(
             data = TokenData(
                 id = "mockId",
                 type = "mockType",
@@ -83,8 +83,7 @@ class TokenRepositoryTest {
                     tokenType = "mockType",
                     expiresIn = 0
                 )
-            ),
-            errors = null
+            )
         )
 
         val refreshRequest = RefreshRequest(
