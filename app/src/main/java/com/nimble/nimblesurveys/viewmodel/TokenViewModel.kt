@@ -12,6 +12,7 @@ import com.nimble.nimblesurveys.model.user.Token
 import com.nimble.nimblesurveys.data.remote.service.SessionManager
 import com.nimble.nimblesurveys.model.user.RefreshRequest
 import com.nimble.nimblesurveys.model.user.TokenData
+import com.nimble.nimblesurveys.utils.Constants
 import com.nimble.nimblesurveys.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class TokenViewModel @Inject constructor(
     fun login(context: Context, loginRequest: LoginRequest) {
         viewModelScope.launch {
             try {
+                _loginResponse.value = Resource.loading()
                 val response = repository.loginToken(loginRequest)
                 _loginResponse.value = response
             } catch (e: Exception) {
@@ -41,6 +43,7 @@ class TokenViewModel @Inject constructor(
     fun refresh(refreshRequest: RefreshRequest) {
         viewModelScope.launch {
             try {
+                _refreshResponse.value = Resource.loading()
                 val response = repository.refreshToken(refreshRequest)
                 _refreshResponse.value = response
             } catch (e: Exception) {
@@ -49,14 +52,14 @@ class TokenViewModel @Inject constructor(
         }
     }
 
-    fun createRefreshRequest(sessionManager: SessionManager) : RefreshRequest {
+    fun createRefreshRequest(sessionManager: SessionManager): RefreshRequest {
         val token = sessionManager.fetchAuthToken()
-       return RefreshRequest(
-           "refresh_token",
-           token?.refreshToken ?: "",
-           BuildConfig.CLIENT_ID,
-           BuildConfig.CLIENT_SECRET
-       )
+        return RefreshRequest(
+            Constants.refreshToken,
+            token?.refreshToken ?: "",
+            BuildConfig.CLIENT_ID,
+            BuildConfig.CLIENT_SECRET
+        )
     }
 
     fun saveSessionToken(sessionManager: SessionManager, token: Token) {

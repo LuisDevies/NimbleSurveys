@@ -17,10 +17,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.LoginActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NimbleSurveys.Fullscreen" />
+        <activity
             android:name=".ui.SplashScreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="orientation|keyboardHidden"
             android:exported="true"
-            android:label="@string/title_activity_splashcreen"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.NimbleSurveys.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

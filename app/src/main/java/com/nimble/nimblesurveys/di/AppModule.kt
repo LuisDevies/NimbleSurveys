@@ -8,6 +8,7 @@ import com.nimble.nimblesurveys.data.remote.service.AuthInterceptor
 import com.nimble.nimblesurveys.data.remote.service.SurveyService
 import com.nimble.nimblesurveys.data.remote.service.TokenService
 import com.nimble.nimblesurveys.data.repository.SurveyRepository
+import com.nimble.nimblesurveys.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private const val BASE_URL = "https://survey-api.nimblehq.co/api/v1/"
+    private const val BASE_URL = Constants.apiUrl
 
     @Singleton
     @Provides

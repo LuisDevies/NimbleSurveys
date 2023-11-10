@@ -22,6 +22,7 @@ class SurveyViewModel @Inject constructor(
     fun fetchSurveys() {
         viewModelScope.launch {
             try {
+                _surveyResponse.value = Resource.loading()
                 val response = repository.fetchSurveys()
                 _surveyResponse.value = response
             } catch (e: Exception) {
