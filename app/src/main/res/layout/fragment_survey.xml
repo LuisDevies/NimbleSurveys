@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SurveyFragment">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@android:color/transparent">
+
+        <TextView
+            android:id="@+id/date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/date_horizontal_margin"
+            android:layout_marginVertical="@dimen/date_vertical_margin"
+            android:fontFamily="@font/neuzeit"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/date_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/today_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/date_horizontal_margin"
+            android:layout_marginVertical="@dimen/small_margin"
+            android:fontFamily="@font/neuzeit"
+            android:text="Today"
+            android:textColor="@color/white"
+            android:textSize="@dimen/today_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_text_view" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/date_horizontal_margin"
+            android:src="@drawable/profile"
+            app:layout_constraintBottom_toBottomOf="@id/today_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/today_text_view" />
+
+        <TextView
+            android:id="@+id/detail_screen_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/date_horizontal_margin"
+            android:layout_marginVertical="@dimen/vertical_margin"
+            android:background="@drawable/white_round_background"
+            android:gravity="center"
+            android:text=">"
+            android:textColor="@color/black"
+            android:textSize="@dimen/today_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/survey_description_text_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/description_height"
+            android:layout_marginStart="@dimen/date_horizontal_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:alpha="0.7"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_input_size"
+            app:layout_constraintBottom_toBottomOf="@id/detail_screen_text_view"
+            app:layout_constraintEnd_toStartOf="@id/detail_screen_text_view"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/survey_title_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/date_horizontal_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="@dimen/today_text_size"
+            app:layout_constraintBottom_toTopOf="@id/survey_description_text_view"
+            app:layout_constraintEnd_toStartOf="@id/detail_screen_text_view"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/dots_linear"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/date_horizontal_margin"
+            android:gravity="start"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/survey_title_text_view"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

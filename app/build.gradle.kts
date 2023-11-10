@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
+
 }
 
 android {
@@ -29,12 +31,28 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField ("String", "CLIENT_ID", "\"ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE\"")
-            buildConfigField ("String", "CLIENT_SECRET", "\"lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU\"")
+            buildConfigField(
+                "String",
+                "CLIENT_ID",
+                "\"ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE\""
+            )
+            buildConfigField(
+                "String",
+                "CLIENT_SECRET",
+                "\"lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU\""
+            )
         }
         debug {
-            buildConfigField ("String", "CLIENT_ID", "\"ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE\"")
-            buildConfigField ("String", "CLIENT_SECRET", "\"lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU\"")
+            buildConfigField(
+                "String",
+                "CLIENT_ID",
+                "\"ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE\""
+            )
+            buildConfigField(
+                "String",
+                "CLIENT_SECRET",
+                "\"lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU\""
+            )
         }
     }
     compileOptions {
@@ -62,10 +80,10 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.10.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
-    implementation ("androidx.activity:activity-ktx:1.7.2")
-    implementation ("androidx.fragment:fragment-ktx:1.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // Retrofit for network requests
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -84,13 +102,15 @@ dependencies {
     // Coroutines for asynchronous programming
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
+    implementation ("com.squareup.picasso:picasso:2.8")
+
     testImplementation("junit:junit:4.13.2")
-    testImplementation ("androidx.arch.core:core-testing:2.2.0")
-    testImplementation ("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-    testImplementation ("org.mockito:mockito-inline:3.7.7")
-    testImplementation ("org.mockito:mockito-core:4.3.1")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-    androidTestImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("org.mockito:mockito-inline:3.7.7")
+    testImplementation("org.mockito:mockito-core:4.3.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

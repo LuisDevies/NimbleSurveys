@@ -37,7 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 val refreshRequest = viewModel.createRefreshRequest(sessionManager)
                 viewModel.refresh(refreshRequest)
             } else {
-                // TODO GO TO HOME SCREEN
+                goToActivity(HomeActivity::class.java)
             }
         } else {
             goToActivity(LoginActivity::class.java)
@@ -54,7 +54,7 @@ class SplashScreenActivity : AppCompatActivity() {
                         it
                     )
                 }
-                // TODO GO TO HOME SCREEN
+                goToActivity(HomeActivity::class.java)
             }
 
             Resource.Status.ERROR -> {
@@ -70,6 +70,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun goToActivity(activityToOpen: Class<out Activity?>) {
         val intent = Intent(this, activityToOpen)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent)
     }
 }
