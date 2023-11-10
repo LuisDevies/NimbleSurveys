@@ -76,6 +76,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.42")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.annotation:annotation:1.6.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     kapt("com.google.dagger:hilt-android-compiler:2.42")
     kapt("androidx.hilt:hilt-compiler:1.1.0")
 

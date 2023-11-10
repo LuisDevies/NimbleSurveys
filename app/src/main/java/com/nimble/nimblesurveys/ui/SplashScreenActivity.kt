@@ -1,15 +1,18 @@
 package com.nimble.nimblesurveys.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.nimble.nimblesurveys.data.remote.service.SessionManager
 import com.nimble.nimblesurveys.databinding.ActivitySplashscreenBinding
 import com.nimble.nimblesurveys.model.user.TokenData
 import com.nimble.nimblesurveys.utils.Resource
 import com.nimble.nimblesurveys.viewmodel.TokenViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {
@@ -37,7 +40,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 // TODO GO TO HOME SCREEN
             }
         } else {
-            // TODO GO TO LOGIN SCREEN
+            goToActivity(LoginActivity::class.java)
         }
     }
 
@@ -56,12 +59,17 @@ class SplashScreenActivity : AppCompatActivity() {
 
             Resource.Status.ERROR -> {
                 Toast.makeText(this, tokenResponse.message, Toast.LENGTH_LONG).show()
-                // TODO GO TO LOGIN SCREEN
+                goToActivity(LoginActivity::class.java)
             }
 
             Resource.Status.LOADING -> {
                 // NO NEED FOR LOADING ANIMATION IN SPLASH SCREEN
             }
         }
+    }
+
+    private fun goToActivity(activityToOpen: Class<out Activity?>) {
+        val intent = Intent(this, activityToOpen)
+        startActivity(intent)
     }
 }
