@@ -10,11 +10,11 @@ import javax.inject.Inject
 class TokenRepository @Inject constructor(
     private val tokenRemoteDataSource: TokenRemoteDataSource
 ) {
-    suspend fun refreshToken(refreshRequest: RefreshRequest): Resource<TokenData> {
+    suspend fun refreshToken(refreshRequest: RefreshRequest): Resource<TokenData?> {
         return tokenRemoteDataSource.refreshToken(refreshRequest)
     }
 
-    suspend fun loginToken(loginRequest: LoginRequest): Resource<TokenData> {
+    suspend fun loginToken(loginRequest: LoginRequest): Resource<TokenData?> {
         return tokenRemoteDataSource.loginToken(loginRequest)
     }
 }

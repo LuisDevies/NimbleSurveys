@@ -23,10 +23,10 @@ class TokenViewModel @Inject constructor(
     private val repository: TokenRepository
 ) : ViewModel() {
 
-    private val _loginResponse = MutableLiveData<Resource<TokenData>>()
-    val loginResponse: LiveData<Resource<TokenData>> = _loginResponse
-    private val _refreshResponse = MutableLiveData<Resource<TokenData>>()
-    val refreshResponse: LiveData<Resource<TokenData>> = _refreshResponse
+    private val _loginResponse = MutableLiveData<Resource<TokenData?>>()
+    val loginResponse: LiveData<Resource<TokenData?>> = _loginResponse
+    private val _refreshResponse = MutableLiveData<Resource<TokenData?>>()
+    val refreshResponse: LiveData<Resource<TokenData?>> = _refreshResponse
 
     fun login(context: Context, loginRequest: LoginRequest) {
         viewModelScope.launch {

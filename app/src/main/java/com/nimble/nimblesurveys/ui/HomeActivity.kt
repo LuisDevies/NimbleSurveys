@@ -32,7 +32,7 @@ class HomeActivity : FragmentActivity() {
 
     }
 
-    private fun handleSurveys(surveysResponse: Resource<List<SurveyData>>) {
+    private fun handleSurveys(surveysResponse: Resource<List<SurveyData>?>) {
         when (surveysResponse.status) {
             Resource.Status.SUCCESS -> {
                 surveysResponse.data?.let {

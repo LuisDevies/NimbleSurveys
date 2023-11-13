@@ -37,7 +37,7 @@ class TokenViewModelTest {
     private lateinit var repository: TokenRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<TokenData>>
+    private lateinit var observer: Observer<Resource<TokenData?>>
 
     @Mock
     private lateinit var context: Context
