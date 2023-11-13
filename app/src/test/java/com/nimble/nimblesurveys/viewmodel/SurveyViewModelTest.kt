@@ -34,7 +34,7 @@ class SurveyViewModelTest {
     private lateinit var repository: SurveyRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<SurveyData>>>
+    private lateinit var observer: Observer<Resource<List<SurveyData>?>>
 
 
     private lateinit var viewModel: SurveyViewModel

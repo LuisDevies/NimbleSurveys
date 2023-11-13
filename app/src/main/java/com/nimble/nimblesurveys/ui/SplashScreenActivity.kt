@@ -44,7 +44,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleRefresh(tokenResponse: Resource<TokenData>) {
+    private fun handleRefresh(tokenResponse: Resource<TokenData?>) {
         when (tokenResponse.status) {
             Resource.Status.SUCCESS -> {
                 val sessionManager = SessionManager(this)

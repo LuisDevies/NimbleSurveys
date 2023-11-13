@@ -16,8 +16,8 @@ class SurveyViewModel @Inject constructor(
     private val repository: SurveyRepository
 ) : ViewModel() {
 
-    private val _surveyResponse = MutableLiveData<Resource<List<SurveyData>>>()
-    val surveyResponse: LiveData<Resource<List<SurveyData>>> = _surveyResponse
+    private val _surveyResponse = MutableLiveData<Resource<List<SurveyData>?>>()
+    val surveyResponse: LiveData<Resource<List<SurveyData>?>> = _surveyResponse
 
     fun fetchSurveys() {
         viewModelScope.launch {

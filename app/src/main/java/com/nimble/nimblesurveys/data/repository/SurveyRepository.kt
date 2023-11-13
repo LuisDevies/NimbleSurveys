@@ -8,7 +8,7 @@ import javax.inject.Inject
 class SurveyRepository @Inject constructor(
     private val surveyRemoteDataSource: SurveyRemoteDataSource
 ) {
-    suspend fun fetchSurveys(): Resource<List<SurveyData>> {
+    suspend fun fetchSurveys(): Resource<List<SurveyData>?> {
         return surveyRemoteDataSource.fetchSurveys()
     }
 }
