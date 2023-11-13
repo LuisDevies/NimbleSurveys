@@ -10,6 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nimble.nimblesurveys.data.remote.datasource.SurveyRemoteDataSource
 import com.nimble.nimblesurveys.data.remote.service.SurveyService
+import com.nimble.nimblesurveys.model.Error
 import com.nimble.nimblesurveys.model.ErrorResponse
 import com.nimble.nimblesurveys.model.SurveyData
 import com.nimble.nimblesurveys.model.survey.Survey
@@ -59,8 +60,7 @@ class SurveyRemoteDataSourceTest {
                             coverImage = "mockUrl"
                         )
                     )
-                ),
-                errors = null
+                )
             )
         )
 
@@ -78,14 +78,11 @@ class SurveyRemoteDataSourceTest {
 
         val responseBody = ResponseBody.create(
             "application/json".toMediaTypeOrNull(), Gson().toJson(
-                SurveyResponse(
-                    data = null,
-                    errors = listOf(com.nimble.nimblesurveys.model.Error("ERROR", "400"))
-                )
+                ErrorResponse(listOf<Error>((Error("ERROR", "400"))))
             )
         )
 
-        val mockResponse: Response<SurveyResponse> = Response.error(
+        val mockResponse: Response<ErrorResponse> = Response.error(
             400, responseBody
         )
 
