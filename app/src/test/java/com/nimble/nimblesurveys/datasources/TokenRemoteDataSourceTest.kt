@@ -88,8 +88,7 @@ class TokenRemoteDataSourceTest {
                 ErrorResponse(listOf<Error>((Error("ERROR", "400"))))
             )
         )
-
-        val mockResponse: Response<ErrorResponse> = Response.error(
+        val mockResponse: Response<SurveyResponse> = Response.error(
             400, responseBody
         )
 
@@ -154,7 +153,7 @@ class TokenRemoteDataSourceTest {
             )
         )
 
-        val mockResponse: Response<ErrorResponse> = Response.error(
+        val mockResponse: Response<SurveyResponse> = Response.error(
             400, responseBody
         )
 
