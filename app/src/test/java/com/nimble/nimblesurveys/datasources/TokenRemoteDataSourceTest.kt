@@ -61,8 +61,7 @@ class TokenRemoteDataSourceTest {
                         tokenType = "mockType",
                         expiresIn = 0
                     )
-                ),
-                errors = null
+                )
             )
         )
 
@@ -86,13 +85,9 @@ class TokenRemoteDataSourceTest {
 
         val responseBody = ResponseBody.create(
             "application/json".toMediaTypeOrNull(), Gson().toJson(
-                SurveyResponse(
-                    data = null,
-                    errors = listOf(Error("ERROR", "400"))
-                )
+                ErrorResponse(listOf<Error>((Error("ERROR", "400"))))
             )
         )
-
         val mockResponse: Response<SurveyResponse> = Response.error(
             400, responseBody
         )
@@ -133,8 +128,7 @@ class TokenRemoteDataSourceTest {
                         tokenType = "mockType",
                         expiresIn = 0
                     )
-                ),
-                errors = null
+                )
             )
         )
         val refreshRequest = RefreshRequest(
@@ -155,10 +149,7 @@ class TokenRemoteDataSourceTest {
 
         val responseBody = ResponseBody.create(
             "application/json".toMediaTypeOrNull(), Gson().toJson(
-                SurveyResponse(
-                    data = null,
-                    errors = listOf(Error("ERROR", "400"))
-                )
+                ErrorResponse(listOf<Error>((Error("ERROR", "400"))))
             )
         )
 

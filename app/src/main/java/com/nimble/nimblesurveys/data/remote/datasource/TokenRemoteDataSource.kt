@@ -2,7 +2,6 @@ package com.nimble.nimblesurveys.data.remote.datasource
 
 import com.google.gson.Gson
 import com.nimble.nimblesurveys.data.remote.service.TokenService
-import com.nimble.nimblesurveys.model.Error
 import com.nimble.nimblesurveys.model.ErrorResponse
 import com.nimble.nimblesurveys.model.user.LoginRequest
 import com.nimble.nimblesurveys.model.user.RefreshRequest

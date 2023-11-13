@@ -14,10 +14,9 @@ import com.nimble.nimblesurveys.model.ErrorResponse
 import com.nimble.nimblesurveys.model.SurveyData
 import com.nimble.nimblesurveys.model.survey.Survey
 import com.nimble.nimblesurveys.model.survey.SurveyResponse
-import com.nimble.nimblesurveys.model.user.TokenData
+import com.nimble.nimblesurveys.model.Error
 import com.nimble.nimblesurveys.utils.Resource
 import kotlinx.coroutines.test.runTest
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
@@ -26,6 +25,7 @@ import org.junit.Rule
 import org.junit.rules.TestRule
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
+
 
 @RunWith(MockitoJUnitRunner::class)
 class SurveyRemoteDataSourceTest {
@@ -59,8 +59,7 @@ class SurveyRemoteDataSourceTest {
                             coverImage = "mockUrl"
                         )
                     )
-                ),
-                errors = null
+                )
             )
         )
 
@@ -78,10 +77,7 @@ class SurveyRemoteDataSourceTest {
 
         val responseBody = ResponseBody.create(
             "application/json".toMediaTypeOrNull(), Gson().toJson(
-                SurveyResponse(
-                    data = null,
-                    errors = listOf(com.nimble.nimblesurveys.model.Error("ERROR", "400"))
-                )
+                ErrorResponse(listOf<Error>((Error("ERROR", "400"))))
             )
         )
 
